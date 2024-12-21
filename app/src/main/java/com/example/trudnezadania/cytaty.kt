@@ -21,4 +21,33 @@ object Cytaty {
             println("Nie można dodać pustego cytatu.")
         }
     }
+}fun main() {
+    println("Witaj w Losowym Generatorze Cytatów!")
+
+    while (true) {
+        println("\nWybierz opcję:")
+        println("1. Wylosuj cytat")
+        println("2. Dodaj nowy cytat")
+        println("3. Wyjdź")
+
+        when (readLine()) {
+            "1" -> {
+                val wylosowanyCytat = Cytaty.wylosujCytat()
+                println("\nWylosowany cytat: \"$wylosowanyCytat\"")
+            }
+            "2" -> {
+                println("\nWpisz nowy cytat:")
+                val nowyCytat = readLine() ?: ""
+                Cytaty.dodajCytat(nowyCytat)
+            }
+            "3" -> {
+                println("\nDziękujemy za korzystanie z Losowego Generatora Cytatów. Do zobaczenia!")
+                break
+            }
+            else -> {
+                println("\nNieprawidłowa opcja. Spróbuj ponownie.")
+            }
+        }
+    }
 }
+
