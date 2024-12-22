@@ -30,4 +30,63 @@ class UlubioneKsiazki {
             println("Książki z roku $rok:")
             wyniki.forEach { println("- ${it.tytul} autorstwa ${it.autor}") }
         }
-    }}
+    }
+    fun sortujPoTytule() {
+        println("Książki posortowane alfabetycznie po tytule:")
+        listaKsiazek.sortedBy { it.tytul }.forEach { println("- ${it.tytul} autorstwa ${it.autor}") }
+    }
+
+    fun wyswietlWszystkie() {
+        if (listaKsiazek.isEmpty()) {
+            println("Lista ulubionych książek jest pusta.")
+        } else {
+            println("Lista ulubionych książek:")
+            listaKsiazek.forEach { println("- ${it.tytul} autorstwa ${it.autor} (${it.rokWydania})") }
+        }
+    }
+}
+fun main() {
+    val tracker = UlubioneKsiazki()
+
+    while (true) {
+        println(
+            """
+            Wybierz opcję:
+            1. Dodaj książkę
+            2. Filtruj po autorze
+            3. Filtruj po roku wydania
+            4. Sortuj po tytule
+            5. Wyświetl wszystkie książki
+            6. Zakończ
+        """.trimIndent()
+        )
+        when (readlnOrNull()) {
+            "1" -> {
+                println("Podaj tytuł książki:")
+                val tytul = readlnOrNull() ?: ""
+                println("Podaj autora książki:")
+                val autor = readlnOrNull() ?: ""
+                println("Podaj rok wydania książki:")
+                val rok = readlnOrNull()?.toIntOrNull() ?: 0
+                tracker.dodajKsiazke(Ksiazka(tytul, autor, rok))
+            }
+            "2" -> {
+                println("Podaj autora do filtrowania:")
+                val autor = readlnOrNull() ?: ""
+                tracker.filtrujPoAutorze(autor)
+            }
+            "3" -> {
+                println("Podaj rok wydania do filtrowania:")
+                val rok = readlnOrNull()?.toIntOrNull() ?: 0
+                tracker.filtrujPoRoku(rok)
+            }
+            "4" -> tracker.sortujPoTytule()
+            "5" -> tracker.wyswietlWszystkie()
+            "6" -> {
+                println("Zakończono program.")
+                break
+            }
+            else -> println("Nieprawidłowy wybór. Spróbuj ponownie.")
+        }
+    }
+}
