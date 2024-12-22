@@ -51,4 +51,68 @@ class WynikiMeczów {
         println("Liczba meczów z wynikiem powyżej $prog: $liczba")
     }
 }
+fun main() {
+    val analyzer = WynikiMeczów()
+    println("Witaj w analizatorze wyników sportowych!")
+    while (true) {
+        println("\nWybierz opcję:")
+        println("1. Dodaj wynik meczu")
+        println("2. Pokaż wszystkie wyniki")
+        println("3. Filtruj wyniki powyżej progu")
+        println("4. Dodaj bonus do wyników")
+        println("5. Oblicz sumę wyników")
+        println("6. Znajdź maksymalny wynik")
+        println("7. Oblicz różnicę między największym a najmniejszym wynikiem")
+        println("8. Zlicz mecze powyżej określonego wyniku")
+        println("9. Wyjdź")
+        when (readLine()) {
+            "1" -> {
+                println("Podaj wynik meczu:")
+                val wynik = readLine()?.toIntOrNull()
+                if (wynik != null) {
+                    analyzer.dodajWynik(wynik)
+                } else {
+                    println("Nieprawidłowy wynik.")
+                }
+            }
+            "2" -> analyzer.pokazWyniki()
+            "3" -> {
+                println("Podaj próg:")
+                val prog = readLine()?.toIntOrNull()
+                if (prog != null) {
+                    analyzer.filtrujWyniki(prog)
+                } else {
+                    println("Nieprawidłowy próg.")
+                }
+            }
+            "4" -> {
+                println("Podaj wartość bonusu:")
+                val bonus = readLine()?.toIntOrNull()
+                if (bonus != null) {
+                    analyzer.dodajBonus(bonus)
+                } else {
+                    println("Nieprawidłowa wartość bonusu.")
+                }
+            }
+            "5" -> analyzer.sumaWyników()
+            "6" -> analyzer.maksymalnyWynik()
+            "7" -> analyzer.roznicaMaksMin()
+            "8" -> {
+                println("Podaj próg:")
+                val prog = readLine()?.toIntOrNull()
+                if (prog != null) {
+                    analyzer.liczbaMeczówPowyzej(prog)
+                } else {
+                    println("Nieprawidłowy próg.")
+                }
+            }
+            "9" -> {
+                println("Dziękujemy za skorzystanie z aplikacji. Do zobaczenia!")
+                break
+            }
+            else -> println("Nieprawidłowa opcja. Spróbuj ponownie.")
+        }
+    }
+}
+
 
