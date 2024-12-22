@@ -1,24 +1,33 @@
-package com.example.trudnezadania
-data class Book(val title: String, val author: String, val year: Int)
-fun addBook(favoriteBooks: MutableList<Book>) {
-    print("Podaj tytuł książki: ")
-    val title = readLine() ?: ""
-    print("Podaj autora książki: ")
-    val author = readLine() ?: ""
-    print("Podaj rok wydania książki: ")
-    val year = readLine()?.toIntOrNull() ?: return println("Nieprawidłowy rok!")
+data class Ksiazka(
+    val tytul: String,
+    val autor: String,
+    val rokWydania: Int
+)
 
-    val book = Book(title, author, year)
-    favoriteBooks.add(book)
-    println("Książka '$title' została dodana do listy.")
-}
-fun displayBooks(favoriteBooks: MutableList<Book>) {
-    if (favoriteBooks.isEmpty()) {
-        println("Brak książek na liście.")
-    } else {
-        println("Lista wszystkich książek:")
-        favoriteBooks.forEach {
-            println("${it.title} - ${it.author} (${it.year})")
+class UlubioneKsiazki {
+    private val listaKsiazek = mutableListOf<Ksiazka>()
+
+    fun dodajKsiazke(ksiazka: Ksiazka) {
+        listaKsiazek.add(ksiazka)
+        println("Dodano książkę: ${ksiazka.tytul}")
+    }
+
+    fun filtrujPoAutorze(autor: String) {
+        val wyniki = listaKsiazek.filter { it.autor.equals(autor, ignoreCase = true) }
+        if (wyniki.isEmpty()) {
+            println("Nie znaleziono książek autora: $autor")
+        } else {
+            println("Książki autora $autor:")
+            wyniki.forEach { println("- ${it.tytul} (${it.rokWydania})") }
         }
     }
-}
+
+    fun filtrujPoRoku(rok: Int) {
+        val wyniki = listaKsiazek.filter { it.rokWydania == rok }
+        if (wyniki.isEmpty()) {
+            println("Nie znaleziono książek wydanych w roku: $rok")
+        } else {
+            println("Książki z roku $rok:")
+            wyniki.forEach { println("- ${it.tytul} autorstwa ${it.autor}") }
+        }
+    }}
